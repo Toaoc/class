@@ -1,0 +1,83 @@
+#include<iostream>
+using namespace std;
+class CPU {
+private:
+	enum CPU_RANK{P1=1,P2,P3,P4,P5,P6,P7};
+	CPU_RANK crank = P1;
+	int frequency = 4;
+	float voltage = 45;
+public:
+	CPU();
+	void run();
+	void stop();
+	~CPU();
+};
+class RAM {
+private:
+	int mem = 7096;
+	int fre = 2666;
+public:
+	void getRAM() {
+		cout << "RAM MEMERY:" << mem <<"MB"<< endl;
+		cout << "RAM FRE: " << fre <<"MHz"<< endl;
+	}
+};
+class CDROM {
+private:
+	int mem = 128;
+public:
+	void getMem()
+	{
+		cout << "CPUROM MEM: " << mem << "MB" << endl;
+	}
+};
+class Computer {
+private:
+	CPU intel;
+	RAM ram;
+	CDROM cdrom;
+public:
+	Computer();
+	void run();
+	void stop();
+	~Computer() {
+		cout << "\n析构函数被调用" << endl;
+	}
+};
+CPU::CPU()
+{
+	cout << "\n构造函数被调用\n" << endl;
+}
+void CPU::run()
+{
+	cout << "\nCPU RUNNING!!!" << endl;
+	cout << "CPU RANK: " << crank << "\nCPU FREQUENCY: " << frequency << "MHz" << "\nCPU VOLLTAGE: " << voltage <<"V"<< endl;
+}
+void CPU::stop()
+{
+	cout << "\nCPU STOP!!!\n" << endl;
+}
+CPU::~CPU() 
+{
+	cout << "析构函数被调用" << endl;
+}
+Computer::Computer()
+{
+	cout << "构造函数被调用" << endl;
+}
+void Computer::run() {
+	intel.run();
+	ram.getRAM();
+	cdrom.getMem();
+}
+void Computer::stop()
+{
+	intel.stop();
+}
+int main()
+{
+	Computer HP;
+	HP.run();
+	HP.stop();
+	return 0;
+}
