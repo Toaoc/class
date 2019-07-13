@@ -9,7 +9,14 @@ public:
 	{
 		cout << "出生日期：" << year << "年" << month << "月" << day << "日" << endl;
 	}
-	Birth(int y,int m,int d):year(y),month(m),day(d){}
+	Birth(int y,int m,int d):year(y),month(m),day(d)
+	{
+		cout << "\nBirth构造函数被调用" << endl;
+	}
+	~Birth()
+	{
+		cout << "Birth析构函数被调用" << endl;
+	}
 };
 class People {
 private:
@@ -19,8 +26,15 @@ private:
 	string id;
 	string sex;
 public:
-	People(Birth bir, string nu, string nam, string se,  string i) :birthday(bir), num(nu), name(nam), sex(se), id(i){}
+	People(Birth bir, string nu, string nam, string se,  string i) :birthday(bir), num(nu), name(nam), sex(se), id(i)
+	{
+		cout << "People构造函数被调用" << endl;
+	}
 	void show();
+	~People()
+	{
+		cout << "People析构函数被调用" << endl;
+	}
 };
 void People::show()
 {
@@ -42,7 +56,7 @@ int main()
 	cin >> se;
 	cout << "输入出生日期（空格隔开）：" << flush;
 	cin >> y >> m >> d;
-	cout << "输入身份分证号码：" << flush;
+	cout << "输入身份证号码：" << flush;
 	cin >> i;
 	Birth bir(y, m, d);
 	People employee(bir, nu, nam, se, i);
