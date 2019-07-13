@@ -1,0 +1,51 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Birth {
+private:
+	int year, month, day;
+public:
+	void showBirth()
+	{
+		cout << "出生日期：" << year << "年" << month << "月" << day << "日" << endl;
+	}
+	Birth(int y,int m,int d):year(y),month(m),day(d){}
+};
+class People {
+private:
+	Birth birthday;
+	string num;
+	string name;
+	string id;
+	string sex;
+public:
+	People(Birth bir, string nu, string nam, string se,  string i) :birthday(bir), num(nu), name(nam), sex(se), id(i){}
+	void show();
+};
+void People::show()
+{
+	cout << "\n\n编号：" << num << endl;
+	cout << "姓名：" << name << endl;
+	cout << "性别：" << sex << endl;
+	birthday.showBirth();
+	cout << "身份证号码：" << id << "\n"<<endl;
+}
+int main()
+{
+	string nu, nam, se, i;
+	int y, m, d;
+	cout << "输入编号：" << flush;
+	cin >> nu;
+	cout << "输入姓名：" << flush;
+	cin >> nam;
+	cout << "输入性别：" << flush;
+	cin >> se;
+	cout << "输入出生日期（空格隔开）：" << flush;
+	cin >> y >> m >> d;
+	cout << "输入身份分证号码：" << flush;
+	cin >> i;
+	Birth bir(y, m, d);
+	People employee(bir, nu, nam, se, i);
+	employee.show();
+	return 0;
+}
