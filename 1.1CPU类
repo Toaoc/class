@@ -1,0 +1,49 @@
+#include<iostream>
+using namespace std;
+class CPU {
+private:
+	enum CPU_RANK{P1=1,P2,P3,P4,P5,P6,P7};
+	CPU_RANK crank;
+	int frequency;
+	float voltage;
+public:
+	CPU(int rank, int fre, float vol);
+	void run();
+	void stop();
+	~CPU();
+};
+CPU::CPU(int rank, int fre, float vol)
+{
+	crank = CPU_RANK(rank);
+	frequency = fre;
+	voltage = vol;
+	cout << "\n调用析构函数\n" << endl;
+}
+void CPU::run()
+{
+	cout << "\nCPU RUNNING!!!" << endl;
+	cout << "CPU RANK: " << crank << "\nCPU FREQUENCY: " << frequency << "MHz" << "\nCPU VOLLTAGE: " << voltage <<"V\n"<< endl;
+}
+void CPU::stop()
+{
+	cout << "\nCPU STOP!!!\n" << endl;
+}
+CPU::~CPU() 
+{
+	cout << "析构函数被调用" << endl;
+}
+int main()
+{
+	int  fre, rank;
+	float vol;
+	cout << "Enter CPU rank(1-7):" << endl;
+	cin >> rank;
+	cout << "Enter CPU frequency: " << endl;
+	cin >> fre;
+	cout << "Enter CPU voltage: " << endl;
+	cin >> vol;
+	CPU intel(rank, fre, vol);
+	intel.run();
+	intel.stop();
+	return 0;
+}
