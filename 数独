@@ -1,0 +1,92 @@
+#include<iostream>
+#include<set>
+using namespace std;
+class Sudoku {
+private:
+	int a[9][9];
+public:
+	Sudoku(int num[][9]);
+	void checkAnswer();
+};
+Sudoku::Sudoku(int num[][9])
+{
+	for (int i = 0; i != 9; i++)
+		for (int j = 0; j != 9; j++)
+			a[i][j] = num[i][j];
+}
+void Sudoku::checkAnswer()
+{
+	int i, j, k;
+	set<int> su;
+	for (i = 0; i != 9; i++)
+		for (j = 0, su.clear(); j != 9; j++)
+		{
+			su.insert(a[i][j]);
+			if (j == 8)
+			{
+				if (su.size() != 9)
+				{
+					cout << "Oh,No!" << endl;
+					return;
+				}
+			}
+		}
+
+
+	for (i = 0; i != 9; i++)
+		for (j = 0, su.clear(); j != 9; j++)
+		{
+			su.insert(a[j][i]);
+			if (j == 8)
+			{
+				if (su.size() != 9)
+				{
+					cout << "Oh,No!" << endl;
+					return;
+				}
+			}
+		}
+	int m1, n1, m2, n2;
+	for(m1=0,m2=2;m1<7;m1+=3,m2+=3)
+		for (n1 = 2, k = 0, n2 = 2, su.clear(); n1 < 9; n1 += 3, n2 += 3)
+		{
+			for (i = m1; i < m2; i++)
+				for (j = n1; j < n2; j++,k++)
+				{
+					su.insert(a[i][j]);
+				}
+			if (k==8)
+			{
+				if (su.size() != 9)
+				{
+					cout << "Oh,No!" << endl;
+					return;
+				}
+			}
+		}
+	cout << "Yeah!" << endl;
+}
+int main()
+{
+	int n, arr[9][9];
+	cin >> n;
+	int i, j, k, check;
+	for (i = 0; i != n; i++)
+	{
+		for (j = 0,check=1; j != 9; j++)
+			for (k = 0; k != 9; k++)
+			{
+				cin >> arr[j][k];
+				if (arr[j][k] < 1 || arr[j][k]>9)
+					check = 0;
+			}
+		if (check == 1)
+		{
+			Sudoku sudu(arr);
+			sudu.checkAnswer();
+		}
+		else
+			cout << "Oh,No!" << endl;
+	}
+	return 0;
+}
