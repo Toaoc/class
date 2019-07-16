@@ -1,0 +1,186 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Ball {    //小球类定义
+private:
+	string color;
+public:
+	Ball(){}
+	Ball(const string& c);
+	string getColor() const;
+	void setColor(const string& c);
+};
+Ball::Ball(const string&c)
+{
+	color = c;
+}
+string Ball::getColor()const
+{
+	return color;
+}
+void Ball::setColor(const string&c)
+{
+	color = c;
+}
+template <class T>
+class Optional {    //盒子模板类定义
+private:
+	T content;  //盒子内容
+	bool isEmpty;   //盒子是否为空
+public:
+	Optional();
+	bool exists() const;    //判断盒子是否为空
+	void clear();   //清空盒子
+	void set(const T& t);   //放入物品
+	T get() const;  //获取盒子中的物品
+};
+template <class T>
+Optional<T>::Optional()
+{
+	isEmpty = true;
+}
+template<class T>
+bool Optional<T>::exists()const
+{
+	return !isEmpty;
+}
+template<class T>
+void Optional<T>::clear()
+{
+	isEmpty = 1;
+}
+template<class T>
+void Optional<T>::set(const T& t)
+{
+	content = t;
+	isEmpty = false;
+}
+template<class T>
+T Optional<T>::get()const
+{
+	return content;
+}
+int main()
+{
+	int people, option, oprA;
+	int n;
+	float oprB;
+	string oprC;
+	char Box;
+	Ball ball;
+	Optional<int> A;
+	Optional<float> B;
+	Optional<Ball> C;
+	cin >> n;
+	for (int i = 0; i < n ; i++)
+	{
+		cin >> people >> Box >> option;
+		//cout << "people" << people << "box" << Box << "option" << option << endl;
+		if(people==1)
+			switch (Box)
+			{
+			case 'A':
+				switch (option)
+				{
+				case 1:A.clear(); break;
+				case 2:
+					cin >> oprA;
+					if (A.exists())
+						break;
+					A.set(oprA);
+					break;
+				case 3:
+					cin >> oprA;
+					if (!A.exists())
+						break;
+					A.set(oprA);
+					break;
+				}
+				break;
+			case 'B':
+				switch(option)
+				{
+				case 1:B.clear(); break;
+				case 2:
+					cin >> oprB;
+					if (B.exists())
+						break;
+					B.set(oprB);
+					break;
+				case 3:
+					cin >> oprB;
+					if (!B.exists())
+						break;
+					B.set(oprB);
+					break;
+				}
+				break;
+			case 'C':
+				switch (option)
+				{
+				case 1:C.clear(); break;
+				case 2:
+					cin >> oprC;
+					if (C.exists())
+						break;
+					ball.setColor(oprC);
+					C.set(ball);
+					break;
+				case 3:
+					cin >> oprC;
+					if (!C.exists())
+						break;
+					ball.setColor(oprC);
+					C.set(ball);
+					break;
+				}
+				break;
+			}
+		else
+		{
+			switch (Box)
+			{
+			case 'A':
+				//cout <<" A.get() "<<A.get()<< endl;
+				cin >> oprA;
+				if (!A.exists())
+				{
+					cout << "zannen" << endl;
+					break;
+				}
+				if (oprA == A.get())
+					cout << "omedetou" << endl;
+				else
+					cout << "zannen" << endl;
+				break;
+			case 'B':
+				cin >> oprB;
+				if (!B.exists())
+				{
+					cout << "zannen" << endl;
+					break;
+				}
+				if(oprB==B.get())
+					cout << "omedetou" << endl;
+				else
+					cout << "zannen" << endl;
+				break;
+			case 'C':
+				cin >> oprC;
+				if (!C.exists())
+				{
+					cout << "zannen" << endl;
+					break;
+				}
+				if(oprC==ball.getColor())
+					cout << "omedetou" << endl;
+				else
+					cout << "zannen" << endl;
+				break;
+
+			}
+		}
+	}
+	return 0;
+}
