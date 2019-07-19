@@ -2,15 +2,32 @@
 using namespace std;
 class CPU {
 private:
-	enum CPU_RANK{P1=1,P2,P3,P4,P5,P6,P7};
+	enum CPU_RANK { P1 = 1, P2, P3, P4, P5, P6, P7 };
 	CPU_RANK crank = P1;
 	int frequency = 4;
 	float voltage = 45;
 public:
-	CPU();
-	void run();
-	void stop();
-	~CPU();
+	CPU() { cout << "CPU构造函数被调用" << endl; }
+	void run()
+	{
+		cout << "\nCPU RUNNING!!!" << endl;
+		cout << "CPU RANK: " << crank << "\nCPU FREQUENCY: " << frequency << "MHz" << "\nCPU VOLLTAGE: " << voltage << "V" << endl;
+	}
+	void stop()
+	{
+		cout << "\nCPU STOP!!!\n" << endl;
+	}
+	CPU(CPU &intel)
+	{
+		crank = intel.crank;
+		frequency = intel.frequency;
+		voltage = intel.voltage;
+		cout << "CPU复制构造函数被调用" << endl;
+	}
+	~CPU()
+	{
+		cout << "CPU析构函数被调用" << endl;
+	}
 };
 class RAM {
 private:
@@ -18,9 +35,17 @@ private:
 	int fre = 2666;
 public:
 	void getRAM() {
-		cout << "RAM MEMERY:" << mem <<"MB"<< endl;
-		cout << "RAM FRE: " << fre <<"MHz"<< endl;
+		cout << "RAM MEMERY:" << mem << "MB" << endl;
+		cout << "RAM FRE: " << fre << "MHz" << endl;
 	}
+	RAM() { cout << "RAM构造函数被调用" << endl; }
+	RAM(RAM &amd)
+	{
+		mem = amd.mem;
+		fre = amd.fre;
+		cout << "RAM复制构造函数被调用" << endl;
+	}
+	~RAM() { cout << "RAM析构函数被调用" << endl; }
 };
 class CDROM {
 private:
@@ -30,6 +55,13 @@ public:
 	{
 		cout << "CPUROM MEM: " << mem << "MB" << endl;
 	}
+	CDROM() { cout << "CDROM构造函数被调用" << endl; }
+	CDROM(CDROM&cd)
+	{
+		mem = cd.mem;
+		cout << "CDROM复制构造函数被调用" << endl;
+	}
+	~CDROM() { cout << "CDROM析构函数被调用" << endl; }
 };
 class Computer {
 private:
@@ -37,47 +69,35 @@ private:
 	RAM ram;
 	CDROM cdrom;
 public:
-	Computer();
-	void run();
-	void stop();
+	Computer()
+	{
+		cout << "Computer构造函数被调用" << endl;
+	}
+	void run() {
+		intel.run();
+		ram.getRAM();
+		cdrom.getMem();
+	}
+	void stop()
+	{
+		intel.stop();
+	}
+	Computer(Computer&hp):intel(hp.intel),ram(hp.ram),cdrom(hp.cdrom)
+	{
+		cout << "Computer复制构造函数被调用" << endl;
+	}
 	~Computer() {
-		cout << "\n析构函数被调用" << endl;
+		cout << "\nComputer析构函数被调用" << endl;
 	}
 };
-CPU::CPU()
-{
-	cout << "\n构造函数被调用\n" << endl;
-}
-void CPU::run()
-{
-	cout << "\nCPU RUNNING!!!" << endl;
-	cout << "CPU RANK: " << crank << "\nCPU FREQUENCY: " << frequency << "MHz" << "\nCPU VOLLTAGE: " << voltage <<"V"<< endl;
-}
-void CPU::stop()
-{
-	cout << "\nCPU STOP!!!\n" << endl;
-}
-CPU::~CPU() 
-{
-	cout << "析构函数被调用" << endl;
-}
-Computer::Computer()
-{
-	cout << "构造函数被调用" << endl;
-}
-void Computer::run() {
-	intel.run();
-	ram.getRAM();
-	cdrom.getMem();
-}
-void Computer::stop()
-{
-	intel.stop();
-}
 int main()
 {
 	Computer HP;
 	HP.run();
 	HP.stop();
+
+	Computer Hasee = HP;
+	Hasee.run();
+	Hasee.stop();
 	return 0;
 }
