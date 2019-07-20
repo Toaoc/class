@@ -1,0 +1,90 @@
+#include<iostream>
+#include<string.h>
+using namespace std;
+class Birth {
+private:
+	int year, month, day;
+public:
+	void showBirth()
+	{
+		cout << "出生日期：" << year << "年" << month << "月" << day << "日" << endl;
+	}
+	Birth() { cout << "Birth构造函数被调用" << endl; }
+	Birth(Birth &b)
+	{
+		year = b.year;
+		month = b.month;
+		day = b.day;
+	}
+	void setBirth(int y, int m, int d)
+	{
+		year = y;
+		month = m;
+		day = d;
+	}
+	~Birth()
+	{
+		cout << "Birth析构函数被调用" << endl;
+	}
+};
+class People {
+private:
+	Birth birthday;
+	char num[10], name[11], sex[3], id[20];
+public:
+	People() { cout << "People构造函数被调用" << endl; }
+	void setPeople(Birth bir, char* nu, char* nam, char* se, char* i);
+	void show();
+	~People()
+	{
+		cout << "People析构函数被调用" << endl;
+	}
+	People(People&p);
+};
+void People::setPeople(Birth bir, char* nu, char* nam, char* se, char* i) 
+{
+	birthday = bir;
+	strcpy(num, nu);
+	strcpy(name, nam);
+	strcpy(sex, se);
+	strcpy(id, i);
+}
+People::People(People &p):birthday(p.birthday)
+{
+	strcpy(num, p.num);
+	strcpy(name, p.name);
+	strcpy(sex, p.sex);
+	strcpy(id, p.id);
+}
+void People::show()
+{
+	cout << "\n\n编号：" << num << endl;
+	cout << "姓名：" << name << endl;
+	cout << "性别：" << sex << endl;
+	birthday.showBirth();
+	cout << "身份证号码：" << id << "\n" << endl;
+}
+int main()
+{
+	char nu[10], nam[11], se[3], i[20];
+	int y, m, d;
+	People p[3];
+	Birth pb[3];
+	for (int j = 0; j != 3; j++)
+	{
+		cout << "输入编号：" << flush;
+		cin >> nu;
+		cout << "输入姓名：" << flush;
+		cin >> nam;
+		cout << "输入性别：" << flush;
+		cin >> se;
+		cout << "输入出生日期（空格隔开）：" << flush;
+		cin >> y >> m >> d;
+		cout << "输入身份证号码：" << flush;
+		cin >> i;
+		pb[j].setBirth(y, m, d);
+		p[j].setPeople(pb[j], nu, nam, se, i);
+		p[j].show();
+	}
+	return 0;
+}
