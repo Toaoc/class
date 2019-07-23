@@ -1,0 +1,60 @@
+#include<iostream>
+using namespace std;
+class vehicle
+{
+protected:
+	int Maxspeed, Weight;
+public:
+	vehicle() { cout << "vehicle的构造函数被调用" << endl; }
+	~vehicle() { cout << "vehicle的析构函数被调用" << endl; }
+	virtual void Run() { cout << "The vehicle is running!" << endl; }
+	virtual void Stop() { cout << "The vehicle is stop!" << endl; }
+};
+class bicycle :virtual public vehicle
+{
+protected:
+	float Height;
+public:
+	bicycle() { cout << "bicycle的构造函数被调用" << endl; }
+	~bicycle() { cout << "bicycle的析构函数被调用" << endl; }
+	void Run() { cout << "bicycle is running!" << endl; }
+	void Stop() { cout << "bicycle is stop!" << endl; }
+};
+class motorcar :virtual public vehicle
+{
+protected:
+	int SeatNum;
+public:
+	motorcar() { cout << "motorcar的构造函数被调用" << endl; }
+	~motorcar() { cout << "motorcar的析构函数被调用" << endl; }
+	void Run() { cout << "motorcar is running!" << endl; }
+	void Stop() { cout << "motorcar is stop!" << endl; }
+};
+class motorbicycle :public motorcar, public bicycle
+{
+public:
+	motorbicycle() 
+	{ 
+		Maxspeed = 120;
+		Weight = 130;
+		Height = 1.30;
+		SeatNum = 2;
+		cout << "motorbicycle的构造函数被调用\n" << endl; 
+	}
+	~motorbicycle() { cout << "\nmotorbicycle的析构函数被调用" << endl; }
+	void Run() { cout<<"motorbicycle is running!" << endl; }
+	void Stop() { cout << "motorbicycle is stop!" << endl; }
+	void show()
+	{
+		cout << "Maxspeed: " << Maxspeed << "\nWeight: " << Weight << "\nHeight: " << Height << "\nSeatNum: " << SeatNum << endl;
+	}
+};
+int main()
+{
+	vehicle* vehicle1;
+	motorbicycle Dayang;
+	vehicle1 = &Dayang;
+	vehicle1->Run();
+	vehicle1->Stop();
+	return 0;
+}
