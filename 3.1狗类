@@ -4,11 +4,14 @@ class Animal
 {
 public:
 	Animal() { cout << "Animal的构造函数被调用" << endl; }
-	int age;};
+	~Animal() { cout << "Animal的析构函数被调用" << endl; }
+	int age;
+};
 class dog :public Animal
 {
 public:
 	dog() { cout << "dog的构造函数被调用\n" << endl; }
+	~dog() { cout << "\ndog的析构函数被调用" << endl; }
 	void setAge(int m_age) { age = m_age; }
 	void showAge() { cout << "狗的年龄：" << age << endl; }
 };
