@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+class BaseClass
+{
+public:
+	int mark;
+	BaseClass() { cout << "BaseClass的构造函数被调用" << endl; }
+	~BaseClass() {
+		cout << "BaseClass的析构函数被调用" << endl;
+	}
+};
+class DerivedClass :public BaseClass
+{
+public:
+	DerivedClass()
+	{
+		mark = 10;
+		cout << "DerivedClass的构造函数被调用\n" << endl;
+	}
+	void showmark() { cout << "标记数是：" << mark << endl; }
+	~DerivedClass()
+	{
+		cout << "\nDerivedClass的析构函数被调用" << endl;
+	}
+};
+int main()
+{
+	DerivedClass test;
+	test.showmark();
+	return 0;
+}
