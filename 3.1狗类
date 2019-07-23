@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+class Animal
+{
+public:
+	Animal() { cout << "Animal的构造函数被调用" << endl; }
+	int age;};
+class dog :public Animal
+{
+public:
+	dog() { cout << "dog的构造函数被调用\n" << endl; }
+	void setAge(int m_age) { age = m_age; }
+	void showAge() { cout << "狗的年龄：" << age << endl; }
+};
+int main()
+{
+	int age;
+	dog wang;
+	cout << "请输入狗的年龄：" << flush;
+	cin >> age;
+	wang.setAge(age);
+	wang.showAge();
+	return 0;
+}
