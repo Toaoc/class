@@ -1,0 +1,78 @@
+#include<iostream>
+using namespace std;
+class Point
+{
+private:
+	float x, y;
+public:
+	Point(){}
+	Point(float m_x,float m_y):x(m_x),y(m_y){}
+	void showPos() { cout << "点坐标为：" << x << "," << y << endl; }
+	Point& operator++();
+	Point operator++(int);
+	Point& operator--();
+	Point operator--(int);
+};
+Point& Point::operator++()
+{
+	x += 1;
+	y += 1;
+	return *this;
+}
+Point Point::operator++(int)
+{
+	Point tem = *this;
+	++(*this);
+	return tem;
+}
+Point& Point::operator--()
+{
+	x -= 1;
+	y -= 1;
+	return *this;
+}
+Point Point::operator--(int)
+{
+	Point tem = *this;
+	--(*this);
+	return tem;
+}
+int main()
+{
+	Point test(2, 5);
+	Point tem;
+	test.showPos();
+
+	tem = ++test;
+	cout << "前置自增：" << endl;
+	cout << "自增语句" << flush;
+	tem.showPos();
+	cout << "自增后" << flush;
+	test.showPos();
+	cout << endl;
+
+	tem = test++;
+	cout << "后置自增：" << endl;
+	cout << "自增语句" << flush;
+	tem.showPos();
+	cout << "自增后" << flush;
+	test.showPos();
+	cout << endl;
+
+	tem = --test;
+	cout << "前置自减：" << endl;
+	cout << "自减语句" << flush;
+	tem.showPos();
+	cout << "自减后" << flush;
+	test.showPos();
+	cout << endl;
+
+	tem = test--;
+	cout << "后置自减：" << endl;
+	cout << "自减语句" << flush;
+	tem.showPos();
+	cout << "自减后" << flush;
+	test.showPos();
+	cout << endl;
+	return 0;
+}
